@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 public class TicTacToeRunner {
 
+    private final Scanner s = new Scanner(System.in);
+
     public void play() {
         Board b = new Board();
         b.displayBoard();
         int row;
         int col;
         while (!b.gameFinished()) {
-            Scanner s = new Scanner(System.in);
 
             System.out.println("Enter row (1-3)");
             row = validateValue(s);

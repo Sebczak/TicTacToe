@@ -26,13 +26,17 @@ public class Board {
     }
 
     public void getPlayerFigure(int x, int y) {
+        if (isPositionTaken(x, y)) {
+            System.out.println("Field taken");
+        } else {
             board[x][y] = Figures.X;
         }
+    }
 
     public void getComFigure() {
         int x = random.nextInt(3);
         int y = random.nextInt(3);
-        while (board[x][y] != Figures.BLANK) {
+        while (isPositionTaken(x,y)) {
             x = random.nextInt(3);
             y = random.nextInt(3);
         }
@@ -42,6 +46,14 @@ public class Board {
 
 
     public boolean gameFinished() {
+
+//        for (Figures[] figures : board) {
+//            for (Figures figure : figures) {
+//                if (figure != Figures.BLANK) {
+//                    return true;
+//                }
+//            }
+//        }
 
         if (winnerChecker.gameWonHorizontally(board, Figures.X)) {
             System.out.println("Player won");
@@ -63,5 +75,9 @@ public class Board {
             return true;
         }
         return false;
+    }
+
+    public boolean isPositionTaken(int x, int y) {
+        return board[x][y] != Figures.BLANK;
     }
 }
