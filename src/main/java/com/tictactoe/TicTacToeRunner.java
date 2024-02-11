@@ -20,6 +20,10 @@ public class TicTacToeRunner {
             col = validateValue(s);
 
             b.getPlayerFigure(row, col);
+            if (b.gameFinished()) {
+                b.displayBoard();
+                break;
+            }
 
             System.out.println("Player made a move");
             b.getComFigure();

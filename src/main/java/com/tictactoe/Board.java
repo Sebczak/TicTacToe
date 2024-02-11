@@ -44,16 +44,7 @@ public class Board {
         board[x][y] = Figures.O;
     }
 
-
     public boolean gameFinished() {
-
-//        for (Figures[] figures : board) {
-//            for (Figures figure : figures) {
-//                if (figure != Figures.BLANK) {
-//                    return true;
-//                }
-//            }
-//        }
 
         if (winnerChecker.gameWonHorizontally(board, Figures.X)) {
             System.out.println("Player won");
@@ -72,6 +63,9 @@ public class Board {
             return true;
         } else if (winnerChecker.gameWonDiagonally(board, Figures.O)) {
             System.out.println("COM won");
+            return true;
+        } else if (TieChecker.tieCheck(board)) {
+            System.out.println("TIE");
             return true;
         }
         return false;
