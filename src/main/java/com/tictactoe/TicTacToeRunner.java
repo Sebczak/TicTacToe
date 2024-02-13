@@ -16,7 +16,7 @@ public class TicTacToeRunner {
             System.out.println("Enter row (1-3)");
             row = validateValue(s);
 
-            System.out.println("Enter col 1-3");
+            System.out.println("Enter col (1-3)");
             col = validateValue(s);
 
             b.getPlayerFigure(row, col);
