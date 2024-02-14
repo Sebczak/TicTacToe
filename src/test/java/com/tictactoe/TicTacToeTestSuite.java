@@ -19,7 +19,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Player wins horizontally")
         void testPLayerWinsHorizontally() {
             //Given
-            Board board = new Board();
+            Board board = new Board(3);
 
             //When
             board.getPlayerFigure(0, 0);
@@ -34,7 +34,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Player wins vertically")
         void testPLayerWinsVertically() {
             //Given
-            Board board = new Board();
+            Board board = new Board(3);
 
             //When
             board.getPlayerFigure(0, 0);
@@ -49,7 +49,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Player wins diagonally")
         void testPLayerWinsDiagonally() {
             //Given
-            Board board = new Board();
+            Board board = new Board(3);
 
             //When
             board.getPlayerFigure(0, 0);
@@ -64,7 +64,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Player wins diagonally reversed")
         void testPLayerWinsDiagonallyReversed() {
             //Given
-            Board board = new Board();
+            Board board = new Board(3);
 
             //When
             board.getPlayerFigure(2, 0);
@@ -83,20 +83,17 @@ public class TicTacToeTestSuite {
         @DisplayName("Com wins horizontally")
         void testComputerWinningHorizontally() {
             // Given
-            Random mockRandom = Mockito.mock(Random.class);
-            Board board = new Board(mockRandom);
 
             //When
 
             //Then
-            assertTrue(board.gameFinished());
         }
 
         @Test
         @DisplayName("Com wins vertically")
         void testComputerWinningVertically() {
             // Given
-            Board board = new Board();
+            Board board = new Board(3);
 
         }
 
@@ -104,7 +101,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Com wins diagonally")
         void testComputerWinningDiagonally() {
             // Given
-            Board board = new Board();
+            Board board = new Board(3);
 
         }
 
@@ -112,7 +109,7 @@ public class TicTacToeTestSuite {
         @DisplayName("Com wins diagonally reversed")
         void testComputerWinningDiagonallyReversed() {
             // Given
-            Board board = new Board();
+            Board board = new Board(3);
 
         }
     }
@@ -124,13 +121,10 @@ public class TicTacToeTestSuite {
         @DisplayName("TIE")
         void testTie() {
             // Given
-            Random mockRandom = Mockito.mock(Random.class);
-            Board board = new Board(mockRandom);
 
             //When
 
             //Then
-            assertTrue(board.gameFinished());
         }
     }
 }

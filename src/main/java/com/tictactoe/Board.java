@@ -4,21 +4,17 @@ import java.util.Random;
 
 public class Board {
 
-    private final Figures[][] board = new Figures[3][3];
+    private Figures[][] board;
     Random random = new Random();
     private final WinnerChecker winnerChecker = new WinnerChecker();
 
-    public Board () {
+    public Board (int boardSize) {
+        this.board = new Figures[boardSize][boardSize];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 board[i][j] = Figures.BLANK;
             }
         }
-    }
-
-    public Board (Random random) {
-        this.random = random;
-
     }
 
     public void displayBoard() {
@@ -38,12 +34,12 @@ public class Board {
         }
     }
 
-    public void getComFigure() {
-        int x = random.nextInt(3);
-        int y = random.nextInt(3);
+    public void getComFigure(int boardSize) {
+        int x = random.nextInt(boardSize);
+        int y = random.nextInt(boardSize);
         while (isPositionTaken(x,y)) {
-            x = random.nextInt(3);
-            y = random.nextInt(3);
+            x = random.nextInt(boardSize);
+            y = random.nextInt(boardSize);
         }
 
         board[x][y] = Figures.O;
@@ -51,22 +47,10 @@ public class Board {
 
     public boolean gameFinished() {
 
-        if (winnerChecker.gameWonHorizontally(board, Figures.X)) {
+        if (winnerChecker.gameWonWithThreeFigures(board, Figures.X)) {
             System.out.println("Player won");
             return true;
-        } else if (winnerChecker.gameWonHorizontally(board, Figures.O)) {
-            System.out.println("COM won");
-            return true;
-        } else if (winnerChecker.gameWonVertically(board, Figures.X)) {
-            System.out.println("Player won ");
-            return true;
-        } else if (winnerChecker.gameWonVertically(board, Figures.O)) {
-            System.out.println("COM won");
-            return true;
-        } else if (winnerChecker.gameWonDiagonally(board, Figures.X)) {
-            System.out.println("Player won");
-            return true;
-        } else if (winnerChecker.gameWonDiagonally(board, Figures.O)) {
+        } else if (winnerChecker.gameWonWithThreeFigures(board, Figures.O)) {
             System.out.println("COM won");
             return true;
         } else if (TieChecker.tieCheck(board)) {
