@@ -7,17 +7,21 @@ public class TicTacToeRunner {
     private final Scanner s = new Scanner(System.in);
 
     public void play() {
-        Board b = new Board();
+        System.out.println("Welcome to TicTacToe Game");
+        System.out.println("Enter boardSize");
+        int boardSize = s.nextInt();
+        Board b = new Board(boardSize);
         b.displayBoard();
         int row;
         int col;
+
         while (!b.gameFinished()) {
 
-            System.out.println("Enter row (1-3)");
-            row = validateValue(s);
+            System.out.println("Enter row (1-" + boardSize + ")");
+            row = validateValue(s, boardSize);
 
-            System.out.println("Enter col (1-3)");
-            col = validateValue(s);
+            System.out.println("Enter col (1-" + boardSize + ")");
+            col = validateValue(s, boardSize);
 
             b.getPlayerFigure(row, col);
             if (b.gameFinished()) {
@@ -26,24 +30,26 @@ public class TicTacToeRunner {
             }
 
             System.out.println("Player made a move");
-            b.getComFigure();
+            b.getComFigure(boardSize);
             System.out.println("Com made a move");
             b.displayBoard();
         }
+
+        s.close();
     }
 
-    private int validateValue(Scanner s) {
+    private int validateValue(Scanner s, int boardSize) {
         int value;
         while (true) {
             if (s.hasNextInt()) {
                 value = s.nextInt() - 1;
-                if (value < 0 || value >= 3) {
-                    System.out.println("Enter proper number (1-3)");
+                if (value < 0 || value >= boardSize) {
+                    System.out.println("Enter proper number (1-" + boardSize + ")");
                 } else {
                     break;
                 }
             } else {
-                System.out.println("Type a number (1-3)");
+                System.out.println("Type a number");
                 s.next();
             }
         }
