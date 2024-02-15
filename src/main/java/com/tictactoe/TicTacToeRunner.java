@@ -23,7 +23,7 @@ public class TicTacToeRunner {
             System.out.println("Enter col (1-" + boardSize + ")");
             col = validateValue(s, boardSize);
 
-            b.getPlayerFigure(row, col);
+            b.setPlayerFigureInBoard(row, col);
             if (b.gameFinished()) {
                 b.displayBoard();
                 break;

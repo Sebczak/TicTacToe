@@ -29,7 +29,7 @@ public class Board {
         }
     }
 
-    public void getPlayerFigure(int x, int y) {
+    public void setPlayerFigureInBoard(int x, int y) {
         if (isPositionTaken(x, y)) {
             System.out.println("Field taken");
         } else {
