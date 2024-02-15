@@ -30,7 +30,7 @@ public class TicTacToeRunner {
             }
 
             System.out.println("Player made a move");
-            b.getComFigure(boardSize);
+            b.setComFigureInBoard(boardSize);
             System.out.println("Com made a move");
             b.displayBoard();
         }

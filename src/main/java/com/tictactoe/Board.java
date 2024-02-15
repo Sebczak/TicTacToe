@@ -37,7 +37,7 @@ public class Board {
         }
     }
 
-    public void getComFigure(int boardSize) {
+    public void setComFigureInBoard(int boardSize) {
         setComX(randomValue.nextInt(boardSize));
         setComY(randomValue.nextInt(boardSize));
 
