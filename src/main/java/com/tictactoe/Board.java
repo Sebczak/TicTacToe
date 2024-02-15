@@ -5,7 +5,10 @@ import java.util.Random;
 public class Board {
 
     private Figures[][] board;
-    Random random = new Random();
+    private Random randomValue = new Random();
+    private int comX;
+    private int comY;
+
     private final WinnerChecker winnerChecker = new WinnerChecker();
 
     public Board (int boardSize) {
@@ -34,15 +37,16 @@ public class Board {
         }
     }
 
-    public void getComFigure(int boardSize) {
-        int x = random.nextInt(boardSize);
-        int y = random.nextInt(boardSize);
-        while (isPositionTaken(x,y)) {
-            x = random.nextInt(boardSize);
-            y = random.nextInt(boardSize);
+    public void setComFigureInBoard(int boardSize) {
+        setComX(randomValue.nextInt(boardSize));
+        setComY(randomValue.nextInt(boardSize));
+
+        while (isPositionTaken(comX, comY)) {
+            setComX(randomValue.nextInt(boardSize));
+            setComY(randomValue.nextInt(boardSize));
         }
 
-        board[x][y] = Figures.O;
+        board[comX][comY] = Figures.O;
     }
 
     public boolean gameFinished() {
@@ -62,5 +66,17 @@ public class Board {
 
     public boolean isPositionTaken(int x, int y) {
         return board[x][y] != Figures.BLANK;
+    }
+
+    public void setRandom(int random) {
+        this.randomValue = randomValue;
+    }
+
+    public void setComX(int comX) {
+        this.comX = comX;
+    }
+
+    public void setComY(int comY) {
+        this.comY = comY;
     }
 }
