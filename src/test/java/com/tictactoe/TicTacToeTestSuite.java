@@ -22,9 +22,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.getPlayerFigure(0, 0);
-            board.getPlayerFigure(0, 1);
-            board.getPlayerFigure(0, 2);
+            board.setPlayerFigureInBoard(0, 0);
+            board.setPlayerFigureInBoard(0, 1);
+            board.setPlayerFigureInBoard(0, 2);
 
             //Then
             assertTrue(board.gameFinished());
@@ -37,9 +37,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.getPlayerFigure(0, 0);
-            board.getPlayerFigure(1, 0);
-            board.getPlayerFigure(2, 0);
+            board.setPlayerFigureInBoard(0, 0);
+            board.setPlayerFigureInBoard(1, 0);
+            board.setPlayerFigureInBoard(2, 0);
 
             //Then
             assertTrue(board.gameFinished());
@@ -52,9 +52,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.getPlayerFigure(0, 0);
-            board.getPlayerFigure(1, 1);
-            board.getPlayerFigure(2, 2);
+            board.setPlayerFigureInBoard(0, 0);
+            board.setPlayerFigureInBoard(1, 1);
+            board.setPlayerFigureInBoard(2, 2);
 
             //Then
             assertTrue(board.gameFinished());
@@ -67,9 +67,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.getPlayerFigure(2, 0);
-            board.getPlayerFigure(1, 1);
-            board.getPlayerFigure(0, 2);
+            board.setPlayerFigureInBoard(2, 0);
+            board.setPlayerFigureInBoard(1, 1);
+            board.setPlayerFigureInBoard(0, 2);
 
             //Then
             assertTrue(board.gameFinished());
