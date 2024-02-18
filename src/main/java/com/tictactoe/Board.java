@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class Board {
 
-    private Figures[][] board;
+    private final Figures[][] board;
     private Random randomValue = new Random();
-    private int comX;
-    private int comY;
+    private int positionX;
+    private int positionY;
 
     private final WinnerChecker winnerChecker = new WinnerChecker();
 
@@ -38,15 +38,15 @@ public class Board {
     }
 
     public void setComFigureInBoard(int boardSize) {
-        setComX(randomValue.nextInt(boardSize));
-        setComY(randomValue.nextInt(boardSize));
+        setPositionX(randomValue.nextInt(boardSize));
+        setPositionY(randomValue.nextInt(boardSize));
 
-        while (isPositionTaken(comX, comY)) {
-            setComX(randomValue.nextInt(boardSize));
-            setComY(randomValue.nextInt(boardSize));
-        }
+        do {
+            setPositionX(randomValue.nextInt(boardSize));
+            setPositionY(randomValue.nextInt(boardSize));
+        } while (isPositionTaken(positionX, positionY));
 
-        board[comX][comY] = Figures.O;
+        board[positionX][positionY] = Figures.O;
     }
 
     public boolean gameFinished() {
@@ -69,14 +69,14 @@ public class Board {
     }
 
     public void setRandom(int random) {
-        this.randomValue = randomValue;
+        this.randomValue = new Random(random);
     }
 
-    public void setComX(int comX) {
-        this.comX = comX;
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
     }
 
-    public void setComY(int comY) {
-        this.comY = comY;
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 }

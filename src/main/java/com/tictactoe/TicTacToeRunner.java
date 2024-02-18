@@ -41,15 +41,18 @@ public class TicTacToeRunner {
     private int validateValue(Scanner s, int boardSize) {
         int value;
         while (true) {
-            if (s.hasNextInt()) {
-                value = s.nextInt() - 1;
-                if (value < 0 || value >= boardSize) {
-                    System.out.println("Enter proper number (1-" + boardSize + ")");
+            try {
+                if (s.hasNextInt()) {
+                    value = s.nextInt() - 1;
+                    if (value < 0 || value >= boardSize) {
+                        throw new IllegalArgumentException("Enter proper number (1-" + boardSize + ")");
+                    } else {
+                        break;
+                    }
                 } else {
-                    break;
+                    throw new IllegalArgumentException("Type a number");
                 }
-            } else {
-                System.out.println("Type a number");
+            } catch (IllegalArgumentException e) {
                 s.next();
             }
         }
