@@ -1,13 +1,8 @@
 package com.tictactoe;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -83,10 +78,23 @@ public class TicTacToeTestSuite {
         @DisplayName("Com wins horizontally")
         void testComputerWinningHorizontally() {
             // Given
+            Board board = new Board(3);
 
             //When
+            board.setPlayerFigureInBoard(1,0);
+            board.setPlayerFigureInBoard(1,1);
+            board.setPlayerFigureInBoard(2,0);
+            board.setPlayerFigureInBoard(2,1);
+            board.setRandom(4);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+
+            board.displayBoard();
 
             //Then
+            assertTrue(board.gameFinished());
         }
 
         @Test
@@ -95,6 +103,21 @@ public class TicTacToeTestSuite {
             // Given
             Board board = new Board(3);
 
+            //When
+            board.setPlayerFigureInBoard(0,1);
+            board.setPlayerFigureInBoard(0,2);
+            board.setPlayerFigureInBoard(1,1);
+            board.setPlayerFigureInBoard(1,2);
+            board.setRandom(4);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+
+            board.displayBoard();
+
+            //Then
+            assertTrue(board.gameFinished());
         }
 
         @Test
@@ -103,6 +126,20 @@ public class TicTacToeTestSuite {
             // Given
             Board board = new Board(3);
 
+            //When
+            board.setPlayerFigureInBoard(0,0);
+            board.setPlayerFigureInBoard(0,1);
+            board.setPlayerFigureInBoard(1,0);
+            board.setPlayerFigureInBoard(1,2);
+            board.setPlayerFigureInBoard(2,1);
+            board.setPlayerFigureInBoard(2,2);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.displayBoard();
+
+            //Then
+            assertTrue(board.gameFinished());
         }
 
         @Test
@@ -111,6 +148,20 @@ public class TicTacToeTestSuite {
             // Given
             Board board = new Board(3);
 
+            //When
+            board.setPlayerFigureInBoard(0,1);
+            board.setPlayerFigureInBoard(0,2);
+            board.setPlayerFigureInBoard(1,0);
+            board.setPlayerFigureInBoard(1,2);
+            board.setPlayerFigureInBoard(2,0);
+            board.setPlayerFigureInBoard(2,1);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.displayBoard();
+
+            //Then
+            assertTrue(board.gameFinished());
         }
     }
 
@@ -121,10 +172,22 @@ public class TicTacToeTestSuite {
         @DisplayName("TIE")
         void testTie() {
             // Given
+            Board board = new Board(3);
 
             //When
+            board.setPlayerFigureInBoard(0,0);
+            board.setPlayerFigureInBoard(0,2);
+            board.setPlayerFigureInBoard(1,1);
+            board.setPlayerFigureInBoard(2,1);
+            board.setPlayerFigureInBoard(1,0);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(3);
+            board.displayBoard();
 
             //Then
+            assertTrue(board.gameFinished());
         }
     }
 }
