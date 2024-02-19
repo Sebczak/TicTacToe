@@ -11,13 +11,10 @@ public class TicTacToeRunner {
     public void play() {
         System.out.println("Welcome to TicTacToe Game");
 
-        System.out.println("Select board. Size 3 or Size 10?");
-        int boardSize = scanner.nextInt();
+        int boardSize = makeBoardSize();
         Board board = new Board(boardSize);
 
-        System.out.println("Do you want to play against Player or COM? Select 1 for Player or 2 for COM opponent.");
-        int opponentSelection = scanner.nextInt();
-        scanner.nextLine();
+        int opponentSelection = makeOpponentSelection();
 
         if (opponentSelection == 1) {
             playAgainstPlayer(board, boardSize);
@@ -124,18 +121,68 @@ public class TicTacToeRunner {
             try {
                 if (scanner.hasNextInt()) {
                     value = scanner.nextInt() - 1;
-                    if (value < 0 || value >= boardSize) {
-                        throw new IllegalArgumentException("Enter proper number (1-" + boardSize + ")");
-                    } else {
+                    if (value >= 0 && value < boardSize) {
                         break;
+                    } else {
+                        throw new IllegalArgumentException("Enter a proper number (1-" + boardSize + ")");
                     }
                 } else {
                     throw new IllegalArgumentException("Type a number");
                 }
             } catch (IllegalArgumentException e) {
-                scanner.next();
+                System.out.println(e.getMessage());
+                scanner.nextLine();
             }
         }
         return value;
+    }
+
+    private int makeBoardSize() {
+        int size;
+        System.out.println("Select board size: 1 for 3x3 or 2 for 10x10");
+
+        while (true) {
+            try {
+                if (scanner.hasNextInt()) {
+                    size = scanner.nextInt();
+                    if (size == 1 || size == 2) {
+                        scanner.nextLine();
+                        break;
+                    } else {
+                        throw new IllegalArgumentException("Invalid board size selection. Choose 1 or 2.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input. Please enter 1 or 2.");
+            }
+        }
+        return size == 1 ? 3 : 10;
+    }
+
+    private int makeOpponentSelection() {
+        int selection;
+        System.out.println("Do you want to play against Player or COM? Select 1 for Player or 2 for COM opponent.");
+        while (true) {
+            try {
+                if (scanner.hasNextInt()) {
+                    selection = scanner.nextInt();
+                    if (selection == 1 || selection == 2) {
+                        scanner.nextLine();
+                        break;
+                    } else {
+                        throw new IllegalArgumentException("Invalid board size selection. Choose 1 or 2.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input. Please enter 1 or 2.");
+            }
+        }
+        return selection;
     }
 }
