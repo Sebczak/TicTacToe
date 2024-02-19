@@ -1,5 +1,6 @@
 package com.tictactoe;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TicTacToeTestSuite {
+
+    private Player p1;
+
+    @BeforeEach
+    public void setUp() {
+        Player p1 = new Player();
+        p1.setPlayerChoiceSelect(Figure.X);
+    }
     @Nested
     class PlayerWinTests {
 
@@ -17,9 +26,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0, 0);
-            board.setPlayerFigureInBoard(0, 1);
-            board.setPlayerFigureInBoard(0, 2);
+            board.setPlayerFigureInBoard(p1,0, 0);
+            board.setPlayerFigureInBoard(p1,0, 1);
+            board.setPlayerFigureInBoard(p1,0, 2);
 
             //Then
             assertTrue(board.gameFinished());
@@ -32,9 +41,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0, 0);
-            board.setPlayerFigureInBoard(1, 0);
-            board.setPlayerFigureInBoard(2, 0);
+            board.setPlayerFigureInBoard(p1,0, 0);
+            board.setPlayerFigureInBoard(p1,1, 0);
+            board.setPlayerFigureInBoard(p1,2, 0);
 
             //Then
             assertTrue(board.gameFinished());
@@ -47,9 +56,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0, 0);
-            board.setPlayerFigureInBoard(1, 1);
-            board.setPlayerFigureInBoard(2, 2);
+            board.setPlayerFigureInBoard(p1,0, 0);
+            board.setPlayerFigureInBoard(p1,1, 1);
+            board.setPlayerFigureInBoard(p1,2, 2);
 
             //Then
             assertTrue(board.gameFinished());
@@ -62,9 +71,9 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(2, 0);
-            board.setPlayerFigureInBoard(1, 1);
-            board.setPlayerFigureInBoard(0, 2);
+            board.setPlayerFigureInBoard(p1,2, 0);
+            board.setPlayerFigureInBoard(p1,1, 1);
+            board.setPlayerFigureInBoard(p1,0, 2);
 
             //Then
             assertTrue(board.gameFinished());
@@ -81,10 +90,10 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(1,0);
-            board.setPlayerFigureInBoard(1,1);
-            board.setPlayerFigureInBoard(2,0);
-            board.setPlayerFigureInBoard(2,1);
+            board.setPlayerFigureInBoard(p1,1,0);
+            board.setPlayerFigureInBoard(p1,1,1);
+            board.setPlayerFigureInBoard(p1,2,0);
+            board.setPlayerFigureInBoard(p1,2,1);
             board.setRandom(4);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
@@ -104,10 +113,10 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0,1);
-            board.setPlayerFigureInBoard(0,2);
-            board.setPlayerFigureInBoard(1,1);
-            board.setPlayerFigureInBoard(1,2);
+            board.setPlayerFigureInBoard(p1,0,1);
+            board.setPlayerFigureInBoard(p1,0,2);
+            board.setPlayerFigureInBoard(p1,1,1);
+            board.setPlayerFigureInBoard(p1,1,2);
             board.setRandom(4);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
@@ -127,12 +136,12 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0,0);
-            board.setPlayerFigureInBoard(0,1);
-            board.setPlayerFigureInBoard(1,0);
-            board.setPlayerFigureInBoard(1,2);
-            board.setPlayerFigureInBoard(2,1);
-            board.setPlayerFigureInBoard(2,2);
+            board.setPlayerFigureInBoard(p1,0,0);
+            board.setPlayerFigureInBoard(p1,0,1);
+            board.setPlayerFigureInBoard(p1,1,0);
+            board.setPlayerFigureInBoard(p1,1,2);
+            board.setPlayerFigureInBoard(p1,2,1);
+            board.setPlayerFigureInBoard(p1,2,2);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
@@ -149,12 +158,12 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0,1);
-            board.setPlayerFigureInBoard(0,2);
-            board.setPlayerFigureInBoard(1,0);
-            board.setPlayerFigureInBoard(1,2);
-            board.setPlayerFigureInBoard(2,0);
-            board.setPlayerFigureInBoard(2,1);
+            board.setPlayerFigureInBoard(p1,0,1);
+            board.setPlayerFigureInBoard(p1,0,2);
+            board.setPlayerFigureInBoard(p1,1,0);
+            board.setPlayerFigureInBoard(p1,1,2);
+            board.setPlayerFigureInBoard(p1,2,0);
+            board.setPlayerFigureInBoard(p1,2,1);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
@@ -175,11 +184,11 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
-            board.setPlayerFigureInBoard(0,0);
-            board.setPlayerFigureInBoard(0,2);
-            board.setPlayerFigureInBoard(1,1);
-            board.setPlayerFigureInBoard(2,1);
-            board.setPlayerFigureInBoard(1,0);
+            board.setPlayerFigureInBoard(p1,0,0);
+            board.setPlayerFigureInBoard(p1,0,2);
+            board.setPlayerFigureInBoard(p1,1,1);
+            board.setPlayerFigureInBoard(p1,2,1);
+            board.setPlayerFigureInBoard(p1,1,0);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);
             board.setComFigureInBoard(3);

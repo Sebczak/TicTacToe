@@ -4,57 +4,55 @@ import java.util.Random;
 
 public class Board {
 
-    private final Figures[][] board;
+    private final Figure[][] board;
     private Random randomValue = new Random();
-    private int positionX;
-    private int positionY;
 
     private final WinnerChecker winnerChecker = new WinnerChecker();
 
     public Board (int boardSize) {
-        this.board = new Figures[boardSize][boardSize];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                board[i][j] = Figures.BLANK;
+        this.board = new Figure[boardSize][boardSize];
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board.length; y++) {
+                board[x][y] = Figure.BLANK;
             }
         }
     }
 
     public void displayBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print("|" + board[i][j]);
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board.length; y++) {
+                System.out.print("|" + board[x][y]);
             }
             System.out.println("|");
         }
     }
 
-    public void setPlayerFigureInBoard(int x, int y) {
+    public void setPlayerFigureInBoard(Player player, int x, int y) {
         if (isPositionTaken(x, y)) {
             System.out.println("Field taken");
         } else {
-            board[x][y] = Figures.X;
+            board[x][y] = player.getPlayerChoiceSelect();
         }
     }
 
     public void setComFigureInBoard(int boardSize) {
-        setPositionX(randomValue.nextInt(boardSize));
-        setPositionY(randomValue.nextInt(boardSize));
+        int x;
+        int y;
 
         do {
-            setPositionX(randomValue.nextInt(boardSize));
-            setPositionY(randomValue.nextInt(boardSize));
-        } while (isPositionTaken(positionX, positionY));
+            x = randomValue.nextInt(boardSize);
+            y = randomValue.nextInt(boardSize);
+        } while (isPositionTaken(x, y));
 
-        board[positionX][positionY] = Figures.O;
+        board[x][y] = Figure.O;
     }
 
     public boolean gameFinished() {
 
-        if (winnerChecker.gameWonWithThreeFigures(board, Figures.X)) {
+        if (winnerChecker.gameWonWithThreeFigures(board, Figure.X)) {
             System.out.println("Player won");
             return true;
-        } else if (winnerChecker.gameWonWithThreeFigures(board, Figures.O)) {
+        } else if (winnerChecker.gameWonWithThreeFigures(board, Figure.O)) {
             System.out.println("COM won");
             return true;
         } else if (TieChecker.tieCheck(board)) {
@@ -65,18 +63,10 @@ public class Board {
     }
 
     public boolean isPositionTaken(int x, int y) {
-        return board[x][y] != Figures.BLANK;
+        return board[x][y] != Figure.BLANK;
     }
 
     public void setRandom(int random) {
         this.randomValue = new Random(random);
-    }
-
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
-    }
-
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
     }
 }

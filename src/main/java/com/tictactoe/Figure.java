@@ -1,6 +1,6 @@
 package com.tictactoe;
 
-public enum Figures {
+public enum Figure {
     X,
     O,
     BLANK;
