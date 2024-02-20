@@ -27,15 +27,17 @@ public class Board {
         }
     }
 
-    public void setPlayerFigureInBoard(Player player, int x, int y) {
+    public boolean setPlayerFigureInBoard(Player player, int x, int y) {
         if (isPositionTaken(x, y)) {
             System.out.println("Field taken");
+            return true;
         } else {
             board[x][y] = player.getPlayerChoiceSelect();
+            return false;
         }
     }
 
-    public void setComFigureInBoard(int boardSize) {
+    public void setComFigureInBoard(Player player, int boardSize) {
         int x;
         int y;
 
@@ -44,16 +46,16 @@ public class Board {
             y = randomValue.nextInt(boardSize);
         } while (isPositionTaken(x, y));
 
-        board[x][y] = Figure.O;
+        board[x][y] = player.getPlayerChoiceSelect();
     }
 
-    public boolean gameFinished() {
+    public boolean gameFinished(Player p1, Player p2) {
 
-        if (winnerChecker.gameWonWithThreeFigures(board, Figure.X)) {
-            System.out.println("Player won");
+        if (winnerChecker.gameWonWithThreeFigures(board, p1.getPlayerChoiceSelect())) {
+            System.out.println(p1.getUsername() + " won");
             return true;
-        } else if (winnerChecker.gameWonWithThreeFigures(board, Figure.O)) {
-            System.out.println("COM won");
+        } else if (winnerChecker.gameWonWithThreeFigures(board,p2.getPlayerChoiceSelect())) {
+            System.out.println(p2.getUsername() + " won");
             return true;
         } else if (TieChecker.tieCheck(board)) {
             System.out.println("TIE");
