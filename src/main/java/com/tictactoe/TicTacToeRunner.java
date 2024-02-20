@@ -28,13 +28,21 @@ public class TicTacToeRunner {
     }
 
     private void playerMove(Player player, Board board, int boardSize) {
-        System.out.println(player.getUsername() + " please enter row (1-" + boardSize + ")");
-        int row = makeValidUserInput(boardSize);
+        while (true) {
+            System.out.println(player.getUsername() + " please enter row (1-" + boardSize + ")");
+            int row = makeValidUserInput(boardSize);
 
-        System.out.println(player.getUsername() + " please enter col (1-" + boardSize + ")");
-        int col = makeValidUserInput(boardSize);
+            System.out.println(player.getUsername() + " please enter col (1-" + boardSize + ")");
+            int col = makeValidUserInput(boardSize);
 
-        board.setPlayerFigureInBoard(player, row, col);
+            if (board.setPlayerFigureInBoard(player, row, col)) {
+                System.out.println("Invalid move. Select other field");
+            } else {
+                board.displayBoard();
+                System.out.println(player.getUsername() + " made a move.");
+                break;
+            }
+        }
         board.displayBoard();
         System.out.println(player.getUsername() + " made a move.");
     }
@@ -68,16 +76,26 @@ public class TicTacToeRunner {
 
         board.displayBoard();
 
-        while (!board.gameFinished()) {
+        while (!board.gameFinished(p1, p2)) {
+            if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
+                playerMove(p1, board, boardSize);
 
-            playerMove(p1,board,boardSize);
+                if (board.gameFinished(p1, p2)) {
+                    board.displayBoard();
+                    break;
+                }
 
-            if (board.gameFinished()) {
-                board.displayBoard();
-                break;
+                playerMove(p2, board, boardSize);
+            } else {
+                playerMove(p2, board, boardSize);
+
+                if (board.gameFinished(p1, p2)) {
+                    board.displayBoard();
+                    break;
+                }
+
+                playerMove(p1, board, boardSize);
             }
-
-            playerMove(p2,board,boardSize);
         }
     }
 
@@ -101,17 +119,30 @@ public class TicTacToeRunner {
 
         board.displayBoard();
 
-        while (!board.gameFinished()) {
-            playerMove(p1, board, boardSize);
+        while (!board.gameFinished(p1, p2)) {
+            if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
+                playerMove(p1, board, boardSize);
 
-            if (board.gameFinished()) {
+                if (board.gameFinished(p1, p2)) {
+                    board.displayBoard();
+                    break;
+                }
+
+                board.setComFigureInBoard(p2, boardSize);
+                System.out.println("Com made a move");
                 board.displayBoard();
-                break;
-            }
+            } else {
+                board.setComFigureInBoard(p2, boardSize);
+                System.out.println("Com made a move");
+                board.displayBoard();
 
-            board.setComFigureInBoard(boardSize);
-            System.out.println("Com made a move");
-            board.displayBoard();
+                if (board.gameFinished(p1, p2)) {
+                    board.displayBoard();
+                    break;
+                }
+
+                playerMove(p1, board, boardSize);
+            }
         }
     }
 
