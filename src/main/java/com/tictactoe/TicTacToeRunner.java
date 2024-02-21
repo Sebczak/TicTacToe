@@ -5,12 +5,21 @@ import java.util.Scanner;
 public class TicTacToeRunner {
 
     private final Scanner scanner = new Scanner(System.in);
-    private final Player p1 = new Player();
-    private final Player p2 = new Player();
+    private Player p1;
+    private Player p2;
+
+    public void mainMenu() {
+        System.out.println("Welcome in TicTacToe Game");
+        setPlayerUsernameBeforeTheGame();
+        do {
+            play();
+        } while (shouldPlayAnotherRound());
+
+        System.out.println("Thanks for playing");
+        scanner.close();
+    }
 
     public void play() {
-        System.out.println("Welcome to TicTacToe Game");
-
         int boardSize = makeBoardSize();
         Board board = new Board(boardSize);
 
@@ -23,8 +32,34 @@ public class TicTacToeRunner {
         } else {
             System.out.println("Invalid input");
         }
+        System.out.println(p1.getScore());
+        System.out.println(p2.getScore());
+        shouldPlayAnotherRound();
+    }
 
-        scanner.close();
+    private void setPlayerUsernameBeforeTheGame() {
+        System.out.println("Set username for p1");
+        p1 = new Player(scanner.nextLine());
+        System.out.println("Set username for p2");
+        p2 = new Player(scanner.nextLine());
+    }
+
+    private boolean shouldPlayAnotherRound() {
+        System.out.println("Do you want to play another round? Type Yes or No");
+        String playerChoiceForAnotherRound;
+
+        while (true) {
+            playerChoiceForAnotherRound = scanner.nextLine();
+
+            if (playerChoiceForAnotherRound.equalsIgnoreCase("Yes")) {
+                play();
+                return true;
+            } else if (playerChoiceForAnotherRound.equalsIgnoreCase("No")) {
+                return false;
+            } else {
+                System.out.println("Please type proper text. (Yes or No)");
+            }
+        }
     }
 
     private void playerMove(Player player, Board board, int boardSize) {
@@ -56,25 +91,8 @@ public class TicTacToeRunner {
     }
 
     private void playAgainstPlayer(Board board, int boardSize) {
-        System.out.println("Set username for p1");
-        String p1UsernameSelection = scanner.nextLine();
-        p1.setUsername(p1UsernameSelection);
 
-        System.out.println("Set Figure for p1 X or O");
-        String p1FigureSelection = scanner.nextLine();
-        p1.setPlayerChoiceSelect(switchStringToFigure(p1FigureSelection));
-
-        System.out.println("Set username for p2");
-        String p2UsernameSelection = scanner.nextLine();
-        p2.setUsername(p2UsernameSelection);
-
-        if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
-            p2.setPlayerChoiceSelect(Figure.O);
-        } else {
-            p2.setPlayerChoiceSelect(Figure.X);
-        }
-
-        board.displayBoard();
+        letPlayerChooseFigureAndSetPriorityToX(board);
 
         while (!board.gameFinished(p1, p2)) {
             if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
@@ -101,23 +119,7 @@ public class TicTacToeRunner {
 
     private void playAgainstCom(Board board, int boardSize) {
 
-        System.out.println("Set username for p1");
-        String p1UsernameSelection = scanner.nextLine();
-        p1.setUsername(p1UsernameSelection);
-
-        System.out.println("Set Figure for p1 X or O");
-        String p1FigureSelection = scanner.nextLine();
-        p1.setPlayerChoiceSelect(switchStringToFigure(p1FigureSelection));
-
-        p2.setUsername("COM");
-
-        if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
-            p2.setPlayerChoiceSelect(Figure.O);
-        } else {
-            p2.setPlayerChoiceSelect(Figure.X);
-        }
-
-        board.displayBoard();
+        letPlayerChooseFigureAndSetPriorityToX(board);
 
         while (!board.gameFinished(p1, p2)) {
             if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
@@ -146,6 +148,20 @@ public class TicTacToeRunner {
         }
     }
 
+    private void letPlayerChooseFigureAndSetPriorityToX(Board board) {
+        System.out.println("Set Figure for " + p1.getUsername() + " (X or O)");
+        String p1FigureSelection = scanner.nextLine();
+        p1.setPlayerChoiceSelect(switchStringToFigure(p1FigureSelection));
+
+        if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
+            p2.setPlayerChoiceSelect(Figure.O);
+        } else {
+            p2.setPlayerChoiceSelect(Figure.X);
+        }
+
+        board.displayBoard();
+    }
+
     private int makeValidUserInput(int boardSize) {
         int value;
         while (true) {
@@ -169,9 +185,14 @@ public class TicTacToeRunner {
     }
 
     private int makeBoardSize() {
-        int size;
         System.out.println("Select board size: 1 for 3x3 or 2 for 10x10");
 
+        int size = makeAndValidateInput();
+        return size == 1 ? 3 : 10;
+    }
+
+    private int makeAndValidateInput() {
+        int size;
         while (true) {
             try {
                 if (scanner.hasNextInt()) {
@@ -190,30 +211,11 @@ public class TicTacToeRunner {
                 System.out.println("Invalid input. Please enter 1 or 2.");
             }
         }
-        return size == 1 ? 3 : 10;
+        return size;
     }
 
     private int makeOpponentSelection() {
-        int selection;
         System.out.println("Do you want to play against Player or COM? Select 1 for Player or 2 for COM opponent.");
-        while (true) {
-            try {
-                if (scanner.hasNextInt()) {
-                    selection = scanner.nextInt();
-                    if (selection == 1 || selection == 2) {
-                        scanner.nextLine();
-                        break;
-                    } else {
-                        throw new IllegalArgumentException("Invalid board size selection. Choose 1 or 2.");
-                    }
-                } else {
-                    System.out.println("Invalid input. Please enter a number.");
-                    scanner.nextLine();
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid input. Please enter 1 or 2.");
-            }
-        }
-        return selection;
+        return makeAndValidateInput();
     }
 }

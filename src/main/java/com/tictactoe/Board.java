@@ -53,9 +53,11 @@ public class Board {
 
         if (winnerChecker.gameWonWithThreeFigures(board, p1.getPlayerChoiceSelect())) {
             System.out.println(p1.getUsername() + " won");
+            p1.incrementScore();
             return true;
         } else if (winnerChecker.gameWonWithThreeFigures(board,p2.getPlayerChoiceSelect())) {
             System.out.println(p2.getUsername() + " won");
+            p2.incrementScore();
             return true;
         } else if (TieChecker.tieCheck(board)) {
             System.out.println("TIE");
