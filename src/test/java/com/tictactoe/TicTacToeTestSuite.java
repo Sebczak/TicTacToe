@@ -9,13 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TicTacToeTestSuite {
 
-    private Player p1;
-
-    @BeforeEach
-    public void setUp() {
-        Player p1 = new Player();
-        p1.setPlayerChoiceSelect(Figure.X);
-    }
+    private Player p1 = new Player();
+    private Player p2 = new Player();
     @Nested
     class PlayerWinTests {
 
@@ -26,12 +21,14 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0, 0);
             board.setPlayerFigureInBoard(p1,0, 1);
             board.setPlayerFigureInBoard(p1,0, 2);
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -41,12 +38,14 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0, 0);
             board.setPlayerFigureInBoard(p1,1, 0);
             board.setPlayerFigureInBoard(p1,2, 0);
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -56,12 +55,14 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0, 0);
             board.setPlayerFigureInBoard(p1,1, 1);
             board.setPlayerFigureInBoard(p1,2, 2);
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -71,12 +72,14 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,2, 0);
             board.setPlayerFigureInBoard(p1,1, 1);
             board.setPlayerFigureInBoard(p1,0, 2);
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
     }
 
@@ -90,20 +93,22 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,1,0);
             board.setPlayerFigureInBoard(p1,1,1);
             board.setPlayerFigureInBoard(p1,2,0);
             board.setPlayerFigureInBoard(p1,2,1);
             board.setRandom(4);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
 
             board.displayBoard();
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -113,20 +118,22 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0,1);
             board.setPlayerFigureInBoard(p1,0,2);
             board.setPlayerFigureInBoard(p1,1,1);
             board.setPlayerFigureInBoard(p1,1,2);
             board.setRandom(4);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
 
             board.displayBoard();
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -136,19 +143,21 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0,0);
             board.setPlayerFigureInBoard(p1,0,1);
             board.setPlayerFigureInBoard(p1,1,0);
             board.setPlayerFigureInBoard(p1,1,2);
             board.setPlayerFigureInBoard(p1,2,1);
             board.setPlayerFigureInBoard(p1,2,2);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
             board.displayBoard();
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
 
         @Test
@@ -158,19 +167,21 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0,1);
             board.setPlayerFigureInBoard(p1,0,2);
             board.setPlayerFigureInBoard(p1,1,0);
             board.setPlayerFigureInBoard(p1,1,2);
             board.setPlayerFigureInBoard(p1,2,0);
             board.setPlayerFigureInBoard(p1,2,1);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
             board.displayBoard();
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
     }
 
@@ -184,19 +195,21 @@ public class TicTacToeTestSuite {
             Board board = new Board(3);
 
             //When
+            p1.setPlayerChoiceSelect(Figure.X);
+            p2.setPlayerChoiceSelect(Figure.O);
             board.setPlayerFigureInBoard(p1,0,0);
             board.setPlayerFigureInBoard(p1,0,2);
             board.setPlayerFigureInBoard(p1,1,1);
             board.setPlayerFigureInBoard(p1,2,1);
             board.setPlayerFigureInBoard(p1,1,0);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
-            board.setComFigureInBoard(3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2,3);
+            board.setComFigureInBoard(p2, 3);
             board.displayBoard();
 
             //Then
-            assertTrue(board.gameFinished());
+            assertTrue(board.gameFinished(p1, p2));
         }
     }
 }
