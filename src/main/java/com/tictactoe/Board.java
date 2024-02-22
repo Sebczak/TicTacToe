@@ -29,7 +29,6 @@ public class Board {
 
     public boolean setPlayerFigureInBoard(Player player, int x, int y) {
         if (isPositionTaken(x, y)) {
-            System.out.println("Field taken");
             return true;
         } else {
             board[x][y] = player.getPlayerChoiceSelect();

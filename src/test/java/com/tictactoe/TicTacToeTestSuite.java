@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TicTacToeTestSuite {
 
-    private Player p1 = new Player();
-    private Player p2 = new Player();
+    private Player p1 = new Player("Player");
+    private Player p2 = new Player("COM");
     @Nested
     class PlayerWinTests {
 

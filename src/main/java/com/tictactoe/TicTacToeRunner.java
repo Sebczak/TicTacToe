@@ -1,6 +1,13 @@
 package com.tictactoe;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class TicTacToeRunner {
 
@@ -10,11 +17,12 @@ public class TicTacToeRunner {
 
     public void mainMenu() {
         System.out.println("Welcome in TicTacToe Game");
+        makeValidInputForReadFile();
         setPlayerUsernameBeforeTheGame();
         do {
             play();
         } while (shouldPlayAnotherRound());
-
+        saveScoreToAFile();
         System.out.println("Thanks for playing");
         scanner.close();
     }
@@ -32,9 +40,47 @@ public class TicTacToeRunner {
         } else {
             System.out.println("Invalid input");
         }
-        System.out.println(p1.getScore());
-        System.out.println(p2.getScore());
-        shouldPlayAnotherRound();
+        System.out.println(p1.getUsername() + " 's score is " + p1.getScore());
+        System.out.println(p2.getUsername() + " 's score is " + p2.getScore());
+    }
+
+    private void saveScoreToAFile() {
+        Path path = Paths.get("score.txt");
+
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND))
+        {
+            writer.write(p1.getUsername() + "|" + p1.getScore() + "|" + p2.getScore() + "|" + p2.getUsername() + "\n");
+        } catch (IOException e) {
+            System.out.println("wystąpił błąd: " + e);
+        }
+    }
+
+    private void makeValidInputForReadFile() {
+        String playerInputForReadData;
+        System.out.println("Would you like to check the score from earlier games? (Yes or No)");
+        while (true) {
+            playerInputForReadData = scanner.nextLine();
+            if (playerInputForReadData.equalsIgnoreCase("Yes")) {
+                readScoreFromAFile();
+                break;
+            } else if (playerInputForReadData.equalsIgnoreCase("No")) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please type Yes or No.");
+            }
+        }
+    }
+
+    private void readScoreFromAFile() {
+        Path file = Paths.get("score.txt");
+
+        try (Stream<String> stream = Files.lines(file)) {
+
+            stream.forEach(System.out::println);
+
+        } catch (IOException e) {
+            System.out.println("wystąpił błąd: " + e);
+        }
     }
 
     private void setPlayerUsernameBeforeTheGame() {
@@ -45,19 +91,19 @@ public class TicTacToeRunner {
     }
 
     private boolean shouldPlayAnotherRound() {
+        scanner.nextLine();
         System.out.println("Do you want to play another round? Type Yes or No");
-        String playerChoiceForAnotherRound;
+        String playerChoiceForAnotherRound = scanner.nextLine();
 
         while (true) {
-            playerChoiceForAnotherRound = scanner.nextLine();
-
-            if (playerChoiceForAnotherRound.equalsIgnoreCase("Yes")) {
-                play();
+            if (playerChoiceForAnotherRound.equals("Yes")) {
                 return true;
-            } else if (playerChoiceForAnotherRound.equalsIgnoreCase("No")) {
+            } else if (playerChoiceForAnotherRound.equals("No")) {
                 return false;
             } else {
+                System.out.println(playerChoiceForAnotherRound);
                 System.out.println("Please type proper text. (Yes or No)");
+                playerChoiceForAnotherRound = scanner.nextLine();
             }
         }
     }
@@ -73,13 +119,11 @@ public class TicTacToeRunner {
             if (board.setPlayerFigureInBoard(player, row, col)) {
                 System.out.println("Invalid move. Select other field");
             } else {
-                board.displayBoard();
                 System.out.println(player.getUsername() + " made a move.");
+                board.displayBoard();
                 break;
             }
         }
-        board.displayBoard();
-        System.out.println(player.getUsername() + " made a move.");
     }
 
     private Figure switchStringToFigure(String p1UsernameSelection) {
@@ -92,7 +136,7 @@ public class TicTacToeRunner {
 
     private void playAgainstPlayer(Board board, int boardSize) {
 
-        letPlayerChooseFigureAndSetPriorityToX(board);
+        letPlayerChooseFigure(board);
 
         while (!board.gameFinished(p1, p2)) {
             if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
@@ -119,7 +163,7 @@ public class TicTacToeRunner {
 
     private void playAgainstCom(Board board, int boardSize) {
 
-        letPlayerChooseFigureAndSetPriorityToX(board);
+        letPlayerChooseFigure(board);
 
         while (!board.gameFinished(p1, p2)) {
             if (p1.getPlayerChoiceSelect().equals(Figure.X)) {
@@ -148,7 +192,7 @@ public class TicTacToeRunner {
         }
     }
 
-    private void letPlayerChooseFigureAndSetPriorityToX(Board board) {
+    private void letPlayerChooseFigure(Board board) {
         System.out.println("Set Figure for " + p1.getUsername() + " (X or O)");
         String p1FigureSelection = scanner.nextLine();
         p1.setPlayerChoiceSelect(switchStringToFigure(p1FigureSelection));
